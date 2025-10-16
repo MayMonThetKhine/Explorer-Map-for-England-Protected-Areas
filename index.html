@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+	<!--This title appears in the browser tab-->
+	<title> England Protected Areas </title>
+	<!--This is a link to the Leaflet JavaScript library-->
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	<!--This is a link to the stylesheet-->
+	<link rel="stylesheet" href="style_protected.css"/>
+	<!--This is a link to the Leaflet stylesheet-->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> 
+	<script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="script_protected.js"></script>
+</head>
+
+<body onload = "initialize()">
+	<div class = "title">
+	<h1> Map Explorer of England Protected Areas </a></h1>
+	</div>
+	
+	<!-- adding a search button for accessing locations-->
+	<div id="search-container">
+    <input type="text" id="search-input" placeholder="Enter place name or postcode: ">
+    <button onclick="searchLocation()">Search</button>
+	</div>
+	
+	<!-- adding a filter button for choosing area designations-->
+	<select id="typeFilter" onchange="filterAreas()">
+    <option value="all">All</option>
+    <option value="np">National Parks</option>
+    <option value="nnr">National Nature Reserves</option>
+	<option value="spa">Special Protection Areas</option>
+	<option value="aonb">Areas of Oustanding Natural Beauty</option>
+	</select>
+	
+	<!--The map div which hosts map object -->
+	<div id="mapdiv"></div>
+	
+	<!-- Description block is shown with the toggle to show and hide the block-->
+	<div id="description-wrapper">
+	<button id="toggle-description" onclick="toggleDescription()">Click for Description ▼</button>
+
+	<div id="description-block" style="display: none;">
+    <h2>About the Map</h2>
+    <p>
+      England’s breathtaking landscapes are protected by national designations. This map highlights 10 National Parks and 34 Areas of Outstanding Natural Beauty (AONBs) – scenic regions preserved for future generations. It also shows Special Protection Areas (SPAs) and National Nature Reserves (NNRs) protecting important wildlife habitats. Together, these sites cover roughly a quarter of England’s land, helping ensure the country’s natural heritage thrives for everyone to enjoy.
+    </p>
+    <p>
+      <strong>Data source:</strong> Department for Environment, Food & Rural Affairs (DEFRA) – licensed under the Open Government Licence v3.0.
+    </p>
+	</div>
+	</div>
+	
+	<div class="diagram-container">
+	<h3>Figure: Server-side architecture for delivering protected area data</h3>
+	<div class="diagram-box">Client Browser<br><small>(Leaflet + JS)</small></div>
+	<div class="arrow">↓<br><code>fetch('get_areas.php?type=aonb')</code></div>
+	<div class="diagram-box">PHP Server<br><small>(get_areas.php)</small></div>
+	<div class="arrow">↓</div>
+	<div class="diagram-box">GeoJSON Files<br><small>(np.json, aonb.json...)</small></div>
+	<p class="caption">*Note: This architecture can later be extended to use PostGIS via SQL queries.*</p>
+	</div>
+	
+</body>
+</html>
